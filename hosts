@@ -1,0 +1,5 @@
+[jenkins-agent]
+172.31.9.21
+
+[eks-bootstrap]
+172.31.12.27
