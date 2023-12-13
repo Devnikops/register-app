@@ -99,8 +99,8 @@ pipeline {
             steps {
                 script {
                     // Replace with the path to your Ansible playbook and inventory file
-                    def ansiblePlaybookPath = '/home/ubuntu/Ansible/playbook.yml'
-                    def ansibleInventoryPath = '/home/ubuntu/Ansible/hosts'
+                    def ansiblePlaybookPath = 'playbook.yml'
+                    def ansibleInventoryPath = 'hosts'
 
                     // Define the command to execute the Ansible playbook
                     def ansibleCmd = "ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}"
