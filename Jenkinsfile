@@ -83,14 +83,14 @@ pipeline {
            }
        }
 
-       stage ('Cleanup Artifacts') {
+       /*stage ('Cleanup Artifacts') {
            steps {
                script {
                     sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
                     sh "docker rmi ${IMAGE_NAME}:latest"
                }
           }
-       }
+       }*/
 
        
        //Ansible execution starts here
@@ -98,8 +98,8 @@ pipeline {
             steps {
                 script {
                     // Replace with the path to your Ansible playbook and inventory file
-                    def ansiblePlaybookPath = 'playbook.yml'
-                    def ansibleInventoryPath = 'hosts'
+                    def ansiblePlaybookPath = 'App/playbook.yml'
+                    def ansibleInventoryPath = 'App/hosts'
 
                     // Define the command to execute the Ansible playbook
                     def ansibleCmd = "ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}"
