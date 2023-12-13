@@ -91,13 +91,23 @@ pipeline {
           }
        }
 
-       stage("Trigger CD Pipeline") {
+       
+       //Ansible execution starts here
+       stage('Execute Ansible Playbook') {
             steps {
                 script {
-                    sh "curl -v -k --user admin:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'ec2-13-232-128-192.ap-south-1.compute.amazonaws.com:8080/job/gitops-register-app-cd/buildWithParameters?token=gitops-token'"
+                    // Replace with the path to your Ansible playbook and inventory file
+                    def ansiblePlaybookPath = '/home/ubuntu/Ansible/playbook.yml'
+                    def ansibleInventoryPath = '/home/ubuntu/Ansible/hosts'
+
+                    // Define the command to execute the Ansible playbook
+                    def ansibleCmd = "ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}"
+
+                    // Execute the Ansible playbook using sh command
+                    sh 'ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}'
                 }
             }
-       }
+        }
     }
 
     post {
