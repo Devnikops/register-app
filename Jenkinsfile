@@ -102,7 +102,7 @@ pipeline {
                     // Define the command to execute the Ansible playbook
                     def ansibleCmd = "ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}"
 
-                    // Execute the Ansible playbook using sh command
+                    // Execute the Ansible playbook using sh command.
                     sh "ansiblePlaybook credentialsId: 'jenkins-eks', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/home/ubuntu/Ansible/', playbook: '/home/ubuntu/Ansible/'"
                 }
             }
