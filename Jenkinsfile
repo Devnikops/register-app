@@ -71,7 +71,6 @@ pipeline {
                     }
                 }
             }
-
        }
 
        stage("Trivy Scan") {
@@ -108,6 +107,7 @@ pipeline {
                 }
             }
         }
+    }
     
 
     post {
