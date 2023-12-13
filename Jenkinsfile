@@ -1,7 +1,6 @@
 pipeline {
     agent { 
 	    label 'Jenkins-Agent' 
-	    label 'eks-bootstrap'
     }
     tools {
         jdk 'Java17'
