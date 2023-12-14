@@ -17,18 +17,6 @@
         dest: "/home/ubuntu/workspace/"
         mode: '0744'
 
-    - name: Copy deployment.yaml to remote host
-      ansible.builtin.copy:
-        src: /home/ubuntu/workspace/deployment.yaml
-        dest: /home/ubuntu/Ansible/deployment.yaml
-        remote_src: true
-
-    - name: Copy service.yaml to remote host
-      ansible.builtin.copy:
-        src: /home/ubuntu/workspace/service.yaml
-        dest: /home/ubuntu/Ansible/service.yaml
-        remote_src: true
-
     - name: Run deployment.yml using kubectl
       ansible.builtin.shell:
         cmd: kubectl apply -f /home/ubuntu/Ansible/deployment.yaml
