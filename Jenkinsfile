@@ -60,7 +60,7 @@ pipeline {
 
         } */
 
-	    //docer.build builds a Docker image using the Dockerfile found in the current directory.
+	    //docker.build builds a Docker image using the Dockerfile found in the current directory.
         stage("Build & Push Docker Image") {
             steps {
                 script {
