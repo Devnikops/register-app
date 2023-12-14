@@ -83,46 +83,23 @@ pipeline {
            }
        }
 
-       /*stage ('Cleanup Artifacts') {
+       stage ('Cleanup Artifacts') {
            steps {
                script {
                     sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
                     sh "docker rmi ${IMAGE_NAME}:latest"
                }
           }
-       }*/
+       }
 
-       
-       //Ansible execution starts here
-       stage('Execute Ansible Playbook') {
+       stage ("Trigger CD Pipeline") {
             steps {
                 script {
-                    // Replace with the path to your Ansible playbook and inventory file
-                    def ansiblePlaybookPath = 'playbook.yml'
-                    def ansibleInventoryPath = 'hosts'
-
-                    // Define the command to execute the Ansible playbook
-                    def ansibleCmd = "ansible-playbook -i ${ansibleInventoryPath} ${ansiblePlaybookPath}"
-
-                    // Execute the Ansible playbook using sh command.
-                    sh "ansiblePlaybook credentialsId: 'jenkins-eks', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts', playbook: 'playbook.yml'"
+                    sh "curl -v -k --user admin:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'ec2-3-110-119-57.ap-south-1.compute.amazonaws.com:8080/job/gitops-register-app-cd/buildWithParameters?token=gitops-token'"
                 }
             }
-        }
-    }
-    
-
-    post {
-       failure {
-             emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
-                      subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", 
-                      mimeType: 'text/html',to: "devopswithnik@gmail.com"
-      }
-      success {
-            emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
-                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
-                     mimeType: 'text/html',to: "devopswithnik@gmail.com"
-      }      
+       }
+           
    }
 }
 	
