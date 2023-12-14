@@ -10,7 +10,6 @@
         dest: "/home/ubuntu/workspace/"            
         mode: '0744'
 
-
     - name: download service.yml file to host (eks-bootstrap)
       ansible.builtin.get_url:
         url: "https://raw.github.com/Devnikops/gitops-register-app/main/service.yaml"
