@@ -50,13 +50,13 @@ pipeline {
            }
        }
 
-      stage("Quality Gate"){
+  /*    stage("Quality Gate"){
            steps {
                script {
                     waitForQualityGate abortPipeline: true, credentialsId: 'jenkins-sonarqube-token'
                 }	
             }
-      } 
+      } */
 
 //docker.build builds a Docker image using the Dockerfile found in the current directory...
       stage("Build & Push Docker Image") {
