@@ -8,7 +8,7 @@ pipeline {
     }
     environment {
 	    APP_NAME = "register-app-pipeline"
-            RELEASE = "1.0.0"
+            RELEASE = "2.0.0"
             DOCKER_USER = "nikhil999999"
             DOCKER_PASS = 'dockerhub'
             IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
@@ -32,7 +32,6 @@ pipeline {
             steps {
                 sh "mvn clean package"
             }
-
        }
 
        stage("Test Application"){
@@ -51,26 +50,22 @@ pipeline {
            }
        }
 
-      /* stage("Quality Gate"){
+      stage("Quality Gate"){
            steps {
                script {
-                    waitForQualityGate credentialsId: 'jenkins-sonarqube-token'
+                    waitForQualityGate abortPipeline: true, credentialsId: 'jenkins-sonarqube-token'
                 }	
             }
+      } 
 
-        } */
-
-	    //docker.build builds a Docker image using the Dockerfile found in the current directory...
+	//docker.build builds a Docker image using the Dockerfile found in the current directory...
         stage("Build & Push Docker Image") {
             steps {
                 script {
                     docker.withRegistry('',DOCKER_PASS) {
                         docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
                         docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
+                        docker_image.push('latest')		
                     }
                 }
             }
