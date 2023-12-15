@@ -58,8 +58,8 @@ pipeline {
             }
       } 
 
-	//docker.build builds a Docker image using the Dockerfile found in the current directory...
-        stage("Build & Push Docker Image") {
+//docker.build builds a Docker image using the Dockerfile found in the current directory...
+      stage("Build & Push Docker Image") {
             steps {
                 script {
                     docker.withRegistry('',DOCKER_PASS) {
